@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
+import firebase from './Firebase';
+
 import Home from "./Home";
 import Welcome from "./Welcome";
 import Navigation from "./Navigation";
