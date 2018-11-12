@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
-import firebase from './Firebase';
+import firebase from "./config";
 
 import Home from "./Home";
 import Welcome from "./Welcome";
@@ -16,12 +16,21 @@ class App extends Component {
       user: null
     };
   }
+  componentDidMount() {    
+    const ref = firebase.database().ref("user");
+    ref.on("value", snapshot => {
+      let FBUser = snapshot.val();
+      console.log(this.setState({ user: FBUser}));
+    });
+    
+  }
+
   render() {
     return (
       <div>
-        <Navigation user={this.state.user}/>
-        {this.state.user && <Welcome user={this.state.user} />}        
-        
+        <Navigation user={this.state.user} />
+        {this.state.user && <Welcome user={this.state.user} />}
+
         <Router>
           <Home path="/" user={this.state.user} />
           <Login path="/login" />
