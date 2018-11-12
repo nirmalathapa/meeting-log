@@ -9,7 +9,7 @@ class Welcome extends Component {
           Welcome {user}
         </span>
         ,
-        <a href="/" className="" font-weight-bold text-primary pl-1>
+        <a href="/" className="font-weight-bold text-primary pl-1">
         {''} Logout
         </a>
       </div>
