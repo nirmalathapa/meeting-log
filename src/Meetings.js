@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 
-class Meeting extends Component {
+class Meetings extends Component {
   render() {
     return (
       <div className="text-center mt-4">
-        <h1 className="text-primary">Login</h1>
+        <h1 className="text-primary">Meetings</h1>        
       </div>
     );
   }
 }
 
-export default Meeting;
+export default Meetings;
