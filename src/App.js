@@ -26,6 +26,28 @@ class App extends Component {
           displayName: FBUser.displayName,
           userID: FBUser.uid
         });
+
+        const meetingsRef = firebase.database().ref('meetings/' + FBUser.uid);
+        meetingsRef.on("value", snapshot => {
+          let meetings = snapshot.val();
+          let meetingsList = [];
+
+          for(let item in meetings){
+            meetingsList.push({
+              meetingID: item,
+              meetingName: meetings[item].meetingName
+            });
+          }
+
+          this.setState({
+            meetings: meetingsList,
+            howManyMeetings: meetingsList.length
+          });
+
+        })
+
+      }else{
+        this.setState({user: null})
       }
     });
   }
@@ -60,6 +82,11 @@ class App extends Component {
       });
   };
 
+  addMeeting = meetingName => {
+    const ref = firebase.database().ref(`meetings/${this.state.userID}`);
+    ref.push({meetingName: meetingName});
+  }
+
   render() {
     return (
       <div>
@@ -74,7 +101,7 @@ class App extends Component {
         <Router>
           <Home path="/" user={this.state.user} />
           <Login path="/login" />
-          <Meetings path="/meetings" />
+          <Meetings path="/meetings" meetings={this.state.meetings} addMeeting={this.addMeeting}/>
           <Register path="/register" registerUser={this.registerUser} />
         </Router>
       </div>
