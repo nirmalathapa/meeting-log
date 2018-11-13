@@ -1,34 +1,63 @@
 import React, { Component } from "react";
-import FormError from './FormError';
+import FormError from "./FormError";
+import firebase from "./config";
 
 class Register extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      displayName: '',
-      email: '',
-      passOne: '',
-      passTwo: '',
+      displayName: "",
+      email: "",
+      passOne: "",
+      passTwo: "",
       errorMessage: null
-    }
+    };
+
     this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(e) {
     const itemName = e.target.name;
     const itemValue = e.target.value;
-    this.setState({[itemName]: itemValue}, () => {
-      if(this.state.passOne !== this.state.passTwo){
-        this.setState({errorMessage: 'Password do not match'});
-      }else{
-        this.setState({errorMessage: null})
+    this.setState({ [itemName]: itemValue }, () => {
+      if (this.state.passOne !== this.state.passTwo) {
+        this.setState({ errorMessage: "Passwords no not match" });
+      } else {
+        this.setState({ errorMessage: null });
       }
-    })
+    });
+  }
+
+  handleSubmit(e) {
+    var registrationInfo = {
+      displayName: this.state.displayName,
+      email: this.state.email,
+      password: this.state.passOne
+    };
+    e.preventDefault();
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(
+        registrationInfo.email,
+        registrationInfo.password
+      )
+      .then(() => {
+        this.props.registerUser(registrationInfo.displayName);
+      })
+      .catch(error => {
+        if (error.message !== null) {
+          this.setState({ errorMessage: error.message });
+        } else {
+          this.setState({ errorMessage: null });
+        }
+      });
   }
 
   render() {
     return (
-      <form className="mt-3">
+      <form className="mt-3" onSubmit={this.handleSubmit}>
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-lg-8">
@@ -38,9 +67,7 @@ class Register extends Component {
                   <div className="form-row">
                     {this.state.errorMessage !== null ? (
                       <FormError theMessage={this.state.errorMessage} />
-                    ): null}
-                    
-                    
+                    ) : null}
                     <section className="col-sm-12 form-group">
                       <label
                         className="form-control-label sr-only"
