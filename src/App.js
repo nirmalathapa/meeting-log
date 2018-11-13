@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Router } from "@reach/router";
+import { Router, navigate } from "@reach/router";
 import firebase from "./config";
 
 import Home from "./Home";
@@ -13,29 +13,69 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      user: null
+      user: null,
+      displayName: null,
+      userID: null
     };
   }
-  componentDidMount() {    
-    const ref = firebase.database().ref("user");
-    ref.on("value", snapshot => {
-      let FBUser = snapshot.val();
-      console.log(this.setState({ user: FBUser}));
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(FBUser => {
+      if (FBUser) {
+        this.setState({
+          user: FBUser,
+          displayName: FBUser.displayName,
+          userID: FBUser.uid
+        });
+      }
     });
-    
   }
+  registerUser = userName => {
+    firebase.auth().onAuthStateChanged(FBUser => {
+      FBUser.updateProfile({
+        displayName: userName
+      }).then(() => {
+        this.setState({
+          user: FBUser,
+          displayName: FBUser.displayName,
+          userID: FBUser.uid
+        });
+        navigate("/meetings");
+      });
+    });
+  };
+
+  logOutUser = e => {
+    e.preventDefault();
+    this.setState({
+      displayName: null,
+      userID: null,
+      user: null
+    });
+
+    firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        navigate("/login");
+      });
+  };
 
   render() {
     return (
       <div>
-        <Navigation user={this.state.user} />
-        {this.state.user && <Welcome user={this.state.user} />}
+        <Navigation user={this.state.user} logOutUser={this.logOutUser} />
+        {this.state.user && (
+          <Welcome
+            userName={this.state.displayName}
+            logOutUser={this.logOutUser}
+          />
+        )}
 
         <Router>
           <Home path="/" user={this.state.user} />
           <Login path="/login" />
-          <Meetings path="/meeting" />
-          <Register path="/register" />
+          <Meetings path="/meetings" />
+          <Register path="/register" registerUser={this.registerUser} />
         </Router>
       </div>
     );
