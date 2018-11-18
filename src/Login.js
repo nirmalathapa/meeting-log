@@ -1,16 +1,14 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import firebase from './config';
 import FormError from './FormError';
-import { navigate } from "@reach/router";
-
+import { navigate } from '@reach/router';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayName: "",
-      email: "",
-      password: "",
+      email: '',
+      password: '',
       errorMessage: null
     };
 
@@ -21,6 +19,7 @@ class Login extends Component {
   handleChange(e) {
     const itemName = e.target.name;
     const itemValue = e.target.value;
+
     this.setState({ [itemName]: itemValue });
   }
 
@@ -59,8 +58,10 @@ class Login extends Component {
                 <div className="card-body">
                   <h3 className="font-weight-light mb-3">Log in</h3>
                   <section className="form-group">
-                  {this.state.errorMessage !== null ? (
-                      <FormError theMessage={this.state.errorMessage} />
+                    {this.state.errorMessage !== null ? (
+                      <FormError
+                        theMessage={this.state.errorMessage}
+                      />
                     ) : null}
                     <label
                       className="form-control-label sr-only"
