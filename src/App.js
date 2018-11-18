@@ -8,6 +8,8 @@ import Navigation from "./Navigation";
 import Login from "./Login";
 import Register from "./Register";
 import Meetings from "./Meetings";
+import CheckIn from "./CheckIn";
+import Attendees from "./Attendees";
 
 class App extends Component {
   constructor() {
@@ -105,6 +107,11 @@ class App extends Component {
             addMeeting={this.addMeeting}
             userID={this.state.userID}
           />
+          <Attendees
+            path="/attendees/:userID/:meetingID"
+            adminUser={this.state.userID}
+          />
+          <CheckIn path="/checkin/:userID/:meetingID" />
           <Register path="/register" registerUser={this.registerUser} />
         </Router>
       </div>
