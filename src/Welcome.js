@@ -6,7 +6,7 @@ class Welcome extends Component {
     const { userName, logOutUser } = this.props;
     return (
       <div className="text-center mt-4">
-        <span className="text-secondary font-weight-bold pl-1">
+        <span className="text-secondary font-weight-bold lead pl-1">
           Welcome {userName}
         </span>
         ,

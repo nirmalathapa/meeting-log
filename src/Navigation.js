@@ -6,7 +6,7 @@ class Navigation extends Component {
   render() {
     const { user, logOutUser } = this.props;
     return (
-      <nav className="site-nav family-sans navbar navbar-expand bg-primary navbar-dark higher">
+      <nav className="site-nav family-sans navbar navbar-expand bg-info navbar-dark higher">
         <div className="container-fluid">
           <Link to="/" className="navbar-brand">
             <FaUsers className="mr-2"/>Meeting Log
