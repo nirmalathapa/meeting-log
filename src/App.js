@@ -89,7 +89,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <Navigation user={this.state.user} logOutUser={this.logOutUser} />
         {this.state.user && (
           <Welcome
@@ -114,7 +114,7 @@ class App extends Component {
           <CheckIn path="/checkin/:userID/:meetingID" />
           <Register path="/register" registerUser={this.registerUser} />
         </Router>
-      </div>
+      </React.Fragment>
     );
   }
 }
