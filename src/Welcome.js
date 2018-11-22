@@ -10,7 +10,7 @@ class Welcome extends Component {
           Welcome {userName}
         </span>
         ,
-        <Link to="/login" className="font-weight-bold text-primary pl-1"
+        <Link to="/login" className="font-weight-bold text-info pl-1"
         onClick={e => logOutUser(e)}>
         {''} Logout
         </Link>

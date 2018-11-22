@@ -92,7 +92,7 @@ class Login extends Component {
                     />
                   </section>
                   <div className="form-group text-right mb-0">
-                    <button className="btn btn-primary" type="submit">
+                    <button className="btn btn-info" type="submit">
                       Log in
                     </button>
                   </div>

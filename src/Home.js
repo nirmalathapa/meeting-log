@@ -49,7 +49,7 @@ class Home extends Component {
             {user && (
               <div>
                 <p>To create a new meeting log click on the meetings button.</p>
-                <Link to="/meetings" className="btn btn-primary">
+                <Link to="/meetings" className="btn btn-info">
                   Meetings
                 </Link>
               </div>
