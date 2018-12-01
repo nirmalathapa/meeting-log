@@ -21,6 +21,9 @@ class Meetings extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if(this.state.meetingName === ""){
+      return;
+    }
     this.props.addMeeting(this.state.meetingName);
     this.setState({ meetingName: "" });
   }
