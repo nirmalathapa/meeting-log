@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MeetingsList from './MeetingsList';
+import MeetingsList from '../components/MeetingsList';
 
 
 class Meetings extends Component {
